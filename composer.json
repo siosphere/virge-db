@@ -1,0 +1,15 @@
+{
+    "name": "virge/cli-db",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/siosphere/virge-cli"
+        }
+    ],
+    "require": {
+        "virge/cli": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {"Virge\\": "Virge/"}
+    }
+}
