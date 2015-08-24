@@ -66,6 +66,6 @@ class SchemaService {
     public function logMigration($file) {
         $user = get_current_user();
         $sql = "INSERT INTO `virge_migration` (`filename`, `executed_by`, `executed_on`, `summary`) VALUES (?, ?, ?, ?)";
-        Database::query($sql, [$file, $user, new \DateTime(), Schema::$last_response]);
+        Database::query($sql, array($file, $user, new \DateTime(), Schema::$last_response));
     }
 }
