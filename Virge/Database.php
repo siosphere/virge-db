@@ -18,7 +18,8 @@ class Database {
     
     protected static function getService() {
         //TODO: caching
-        $serviceName = Config::get('database')['service'];
+        $config = Config::get('database');
+        $serviceName = $config['service'];
         return Virge::service($serviceName);
     }
     
