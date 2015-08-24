@@ -70,9 +70,9 @@ class Schema{
      * @return type
      */
     public static function dropColumn($field_name){
-        return self::$drop[] = new Drop([
+        return self::$drop[] = new Drop(array(
             'field_name'    =>      $field_name,
-        ]);
+        ));
     }
     
     /**
@@ -83,11 +83,11 @@ class Schema{
      * @return Rename
      */
     public static function renameColumn($field_name, $new_field_name, $data_type){
-        return self::$renames[] = new Rename([
+        return self::$renames[] = new Rename(array(
             'field_name'        =>      $field_name,
             'new_field_name'    =>      $new_field_name,
             'data_type'         =>      $data_type,
-        ]);
+        ));
     }
     
     /**

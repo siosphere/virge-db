@@ -44,7 +44,7 @@ class Mysql extends \Virge\Database\Component\Connection {
      * @param array $params
      * @return boolean|array
      */
-    public function query($sql, $params = []) {
+    public function query($sql, $params = array()) {
         $stmt = $this->prepare($sql, $params);
         
         $stmt->execute();
@@ -55,7 +55,7 @@ class Mysql extends \Virge\Database\Component\Connection {
             return false;
         }
         
-        $results = [];
+        $results = array();
         while($row = $stmt->fetch_assoc()) {
             $results[] = $row;
         }
@@ -71,14 +71,14 @@ class Mysql extends \Virge\Database\Component\Connection {
      * @return \Virge\Database\Component\Connection\Mysql\Statement
      * @throws InvalidQueryException
      */
-    public function prepare($sql, $params = []) {
+    public function prepare($sql, $params = array()) {
         $stmt = $this->_resource->prepare($sql);
         if(!$stmt) {
             throw new InvalidQueryException(sprintf("Failed to execute query %s, error: %s", $sql, $this->_resource->error));
         }
         if(count($params) > 0) {
-            $bindTypes = [];
-            $bindValues = [];
+            $bindTypes = array();
+            $bindValues = array();
             
             foreach($params as $key => $paramValue) {
                 $bindTypes[] = $this->getValueType($paramValue);
@@ -97,7 +97,7 @@ class Mysql extends \Virge\Database\Component\Connection {
 
             array_unshift($bindValues, implode('', $bindTypes));
 
-            call_user_func_array([$stmt, 'bind_param'], $bindValues);
+            call_user_func_array(array($stmt, 'bind_param'), $bindValues);
         }
         return $stmt;
     }

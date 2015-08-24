@@ -37,9 +37,9 @@ abstract class Connection {
     
     public abstract function connect();
     
-    public abstract function query($sql, $params = []);
+    public abstract function query($sql, $params = array());
     
-    public abstract function prepare($sql, $params = []);
+    public abstract function prepare($sql, $params = array());
     
     /**
      * 
@@ -90,7 +90,7 @@ abstract class Connection {
     }
     
     protected function getConfigValue($key) {
-        $config = Config::get('database')['connections'][$this->getName()];
+        //$config = Config::get('database')['connections'][$this->getName()];
     }
     
     /**

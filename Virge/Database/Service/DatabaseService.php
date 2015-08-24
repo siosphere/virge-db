@@ -19,7 +19,7 @@ class DatabaseService {
      * @param array $params
      * @return boolean|array
      */
-    public function query($sql, $params = []) {
+    public function query($sql, $params = array()) {
         return Database::connection('default')->query($sql, $params);
     }
     
@@ -29,7 +29,7 @@ class DatabaseService {
      * @param array $params
      * @return Statement
      */
-    public function prepare($sql, $params = []) {
+    public function prepare($sql, $params = array()) {
         return Database::connection('default')->prepare($sql, $params);
     }
     
@@ -42,7 +42,8 @@ class DatabaseService {
         
         $connection = new Mysql();
         
-        $connectionsConfig = Config::get('database')['connections'];
+        $config = Config::get('database');
+        $connectionsConfig = $config['connections'];
         
         if(!isset($connectionsConfig[$name])){
             throw new \InvalidArgumentException(sprintf("Invalid connection %s was not defined", $name));
