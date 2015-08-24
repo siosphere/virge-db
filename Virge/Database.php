@@ -14,7 +14,7 @@ class Database {
      * Houses any of our connections
      * @var array 
      */
-    protected static $_connections = [];
+    protected static $_connections = array();
     
     protected static function getService() {
         //TODO: caching
