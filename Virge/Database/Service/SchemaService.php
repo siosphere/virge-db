@@ -1,6 +1,7 @@
 <?php
 namespace Virge\Database\Service;
 
+use Virge\Core\Config;
 use Virge\Database;
 use Virge\Database\Component\Schema;
 
