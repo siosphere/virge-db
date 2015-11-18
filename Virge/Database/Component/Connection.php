@@ -42,6 +42,14 @@ abstract class Connection {
     public abstract function prepare($sql, $params = array());
     
     /**
+     * Returns a database resource
+     * @return resource
+     */
+    public function getResource() {
+        return $this->_resource;
+    }
+    
+    /**
      * 
      * @param string $hostname
      */
