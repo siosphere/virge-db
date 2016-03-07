@@ -1,5 +1,5 @@
 {
-    "name": "virge/cli-db",
+    "name": "virge/db",
     "repositories": [
         {
             "type": "vcs",
