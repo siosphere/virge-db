@@ -202,6 +202,30 @@ class Schema{
     }
     
     /**
+     * Create new time column
+     * @param string $name
+     * @param array $params
+     * @return Field
+     */
+    public static function time($name, $params= array()){
+        $params['name'] = $name;
+        $params['type'] = 'TIME';
+        return self::$fields[] = new Field($params);
+    }
+    
+    /**
+     * Create new datetime column
+     * @param string $name
+     * @param array $params
+     * @return Field
+     */
+    public static function datetime($name, $params= array()){
+        $params['name'] = $name;
+        $params['type'] = 'DATETIME';
+        return self::$fields[] = new Field($params);
+    }
+    
+    /**
      * Create new index
      * @param string $name
      * @param array $columns
