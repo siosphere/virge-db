@@ -30,9 +30,10 @@ class SchemaCommand extends Command {
     
     /**
      * Commit any pending migrations
+     * @param string $path
      */
-    public function commit() {
-        $dir = Config::get('app_path') . 'db/';
+    public function commit($path = '') {
+        $dir = $path === '' ? Config::get('app_path') . 'db/' : $path;
         
         $this->getSchemaService()->commitMigrations($dir);
     }
