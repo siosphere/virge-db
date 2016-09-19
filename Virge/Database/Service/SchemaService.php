@@ -30,6 +30,21 @@ class SchemaService {
         }
         $files = $fileArray['file'];
         uasort($files, function($a, $b) use($dir) {
+
+            $aFilename = pathinfo($a, PATHINFO_FILENAME);
+            $aDateTime = \DateTime::createFromFormat('Y-m-d-H-i-s', substr($aFilename, strlen($aFilename) - 19));
+
+            $bFilename = pathinfo($b, PATHINFO_FILENAME);
+            $bDateTime = \DateTime::createFromFormat('Y-m-d-H-i-s', substr($bFilename, strlen($bFilename) - 19));
+
+            if($aDateTime < $bDateTime) {
+                return -1;
+            }
+
+            if($aDateTime > $bDateTime) {
+                return 1;
+            }
+
             if (filemtime($dir . $a) < filemtime($dir . $b)) {
                 return 1;
             }
