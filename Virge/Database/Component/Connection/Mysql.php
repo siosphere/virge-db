@@ -63,6 +63,11 @@ class Mysql extends \Virge\Database\Component\Connection {
         
         return $results;
     }
+
+    public function ping()
+    {
+        return $this->_resource->ping();
+    }
     
     /**
      * Prepare a statement

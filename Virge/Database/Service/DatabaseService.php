@@ -32,6 +32,15 @@ class DatabaseService {
     public function prepare($sql, $params = array()) {
         return Database::connection('default')->prepare($sql, $params);
     }
+
+    /**
+     * Ping the database connection
+     * @return bool
+     */
+    public function ping() 
+    {
+        return Database::connection('default')->ping();
+    }
     
     /**
      * 

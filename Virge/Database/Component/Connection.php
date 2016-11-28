@@ -40,6 +40,8 @@ abstract class Connection {
     public abstract function query($sql, $params = array());
     
     public abstract function prepare($sql, $params = array());
+
+    public abstract function ping();
     
     /**
      * Returns a database resource
