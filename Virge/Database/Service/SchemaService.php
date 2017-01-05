@@ -57,6 +57,8 @@ class SchemaService {
                 $this->logMigration($file);
             }
         }
+
+        Schema::finish();
     }
     
     /**

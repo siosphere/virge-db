@@ -234,6 +234,7 @@ class Schema{
      */
     public static function index($name, $columns = array(), $params = array()){
         self::$index[] = new Index(array(
+            'table' => self::$table_name,
             'name' => $name,
             'columns' => $columns,
             'type' => 'KEY'
@@ -249,6 +250,7 @@ class Schema{
      */
     public static function unique($name, $columns = array(), $params = array()){
         self::$index[] = new Index(array(
+            'table' => self::$table_name,
             'name' => $name,
             'columns' => $columns,
             'type' => 'UNIQUE'
@@ -380,9 +382,16 @@ class Schema{
     /**
      * Finish out our schema change by adding any indexes, and foreign keys
      */
-    public static function finish(){
+    public static function finish()
+    {
+        foreach(self::$index as $index) {
+            Database::connection(self::$connection)->query($index->getQuery());
+        }
+
+        $database = Database::connection(self::$connection)->getDatabase();
+
         foreach(self::$references as $reference){
-            Database::connection(self::$connection)->query($reference->getQuery());
+            Database::connection(self::$connection)->query($reference->getQuery($database));
         }
     }
     
@@ -393,7 +402,6 @@ class Schema{
         self::$model = false;
         self::$table_name = NULL;
         self::$fields = array();
-        self::$index = array();
         self::$model = false;
         //self::$references = array();
         self::$renames = array();
