@@ -397,6 +397,7 @@ class Schema{
         self::$model = false;
         //self::$references = array();
         self::$renames = array();
+        self::$alter = false;
         if(!empty(self::$last_response)){
             self::$errors[] = self::$last_response;
         }
