@@ -314,7 +314,11 @@ class Schema{
         //keys
         foreach(self::$fields as $field){
             if($field->getIndex()){
-                $sql .= ", " . $field->getIndexQuery();
+                if(!self::$alter) {
+                    $sql .= ", " . $field->getIndexQuery();
+                } else {
+                    self::index($field->getName(), [$field->getName()]);
+                }
             }
         }
         if(!self::$alter){
