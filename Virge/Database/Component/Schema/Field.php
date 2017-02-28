@@ -17,9 +17,10 @@ class Field extends Model{
     protected $attributes = NULL;
     protected $index = NULL;
     protected $comments = NULL;
+    protected $after = NULL;
     
     
-    public function getQuery(){
+    public function getQuery($alter = false){
         $sql = "`{$this->name}` ";
         if($this->getLength()){
             $length = $this->getLength();
@@ -40,6 +41,11 @@ class Field extends Model{
         if($this->increment === TRUE){
             $sql .= " AUTO_INCREMENT";
         }
+
+        if($alter && $this->after) {
+            $sql .= " AFTER `{$this->after}`";
+        }
+
         return $sql;
     }
     

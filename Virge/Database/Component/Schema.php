@@ -304,7 +304,7 @@ class Schema{
             if(self::$alter){
                 $sql .= "ADD COLUMN ";
             }
-            $sql .= $field->getQuery();
+            $sql .= $field->getQuery(self::$alter);
             $i++;
             if($field->getIncrement()){
                 $auto = true;
