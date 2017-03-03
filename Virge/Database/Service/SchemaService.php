@@ -1,6 +1,7 @@
 <?php
 namespace Virge\Database\Service;
 
+use Virge\Cli;
 use Virge\Core\Config;
 use Virge\Database;
 use Virge\Database\Component\Schema;
@@ -11,14 +12,16 @@ use Virge\Virge;
  * 
  * @author Michael Kramer
  */
-class SchemaService {
+class SchemaService 
+{
     
     /**
      * Commit our migrations, pass in a directory will read all files within
      * and commit them as migrations
      * @param string $dir
      */
-    public function commitMigrations($dir) {
+    public function commitMigrations($dir) 
+    {
         $fileArray = Virge::dirToArray($dir);
         
         //TODO: use the Virge ORM
@@ -52,9 +55,13 @@ class SchemaService {
         });
 
         foreach ($files as $file) {
-            if (!in_array($file, $existing)) {
-                include $dir . $file;
-                $this->logMigration($file);
+            try {
+                if (!in_array($file, $existing)) {
+                    include $dir . $file;
+                    $this->logMigration($file);
+                }
+            } catch(\Throwabble $ex) {
+                Cli::output("{$file} MIGRATION FAILED: " . $ex->getMessage());
             }
         }
 
@@ -66,7 +73,8 @@ class SchemaService {
      * @param string $table
      * @return string|boolean
      */
-    public function createMigration($table) {
+    public function createMigration($table) 
+    {
         $filename = str_replace(' ', '_', $table) . date('Y-m-d-H-i-s') . '.php';
         $file = Config::get('app_path') . 'db/' . $filename;
 
@@ -81,7 +89,8 @@ class SchemaService {
      * TODO: use the virge ORM
      * @param string $file
      */
-    public function logMigration($file) {
+    public function logMigration($file) 
+    {
         $user = get_current_user();
         $sql = "INSERT INTO `virge_migration` (`filename`, `executed_by`, `executed_on`, `summary`) VALUES (?, ?, ?, ?)";
         Database::query($sql, array($file, $user, new \DateTime(), Schema::$last_response));

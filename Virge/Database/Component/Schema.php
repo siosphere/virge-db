@@ -1,6 +1,7 @@
 <?php
 namespace Virge\Database\Component;
 
+use Virge\Cli;
 use Virge\Database\Component\Schema\Drop;
 use Virge\Database\Component\Schema\Rename;
 use Virge\Database\Component\Schema\Field;
@@ -292,8 +293,10 @@ class Schema{
         
         $auto = false;
         if(self::$alter){
+            Cli::output('Altering ' . $table_name);
             $sql = "ALTER TABLE `{$table_name}` ";
         } else {
+            Cli::output('Creating ' . $table_name);
             $sql = "CREATE TABLE IF NOT EXISTS `{$table_name}` ( ";
         }
         $i = 0;
@@ -349,15 +352,18 @@ class Schema{
                 self::$error = 'Failed to create ' . self::$table_name . ': ' . self::$last_response;
             }
             
+            Cli::output(self::$error);
             self::reset();
             
             return false;
         } else {
-                if(self::$alter){
-                    self::$last_response = 'Successfully altered ' . self::$table_name;
-                } else {
-                    self::$last_response = 'Successfully created ' . self::$table_name;
-                }
+            if(self::$alter){
+                self::$last_response = 'Successfully altered ' . self::$table_name;
+            } else {
+                self::$last_response = 'Successfully created ' . self::$table_name;
+            }
+
+            Cli::output(self::$last_response);
         }
         
         self::reset();
