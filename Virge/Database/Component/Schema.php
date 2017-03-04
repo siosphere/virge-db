@@ -352,7 +352,7 @@ class Schema{
                 self::$error = 'Failed to create ' . self::$table_name . ': ' . self::$last_response;
             }
             
-            Cli::output(self::$error);
+            Cli::output(self::$error . ': ' . self::$last_response);
             self::reset();
             
             return false;
