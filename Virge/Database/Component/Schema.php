@@ -343,8 +343,9 @@ class Schema{
         $sql .= ";";
         
         $result = Database::connection(self::$connection)->query($sql);
-        if(!$result){
-            self::$last_response = Database::connection(self::$connection)->getError();
+        $error = Database::connection(self::$connection)->getError();
+        if(!$result && !empty($error)) {
+            self::$last_response = $error;
             
             if(self::$alter){
                 self::$error = 'Failed to altered ' . self::$table_name . ': ' . self::$last_response;

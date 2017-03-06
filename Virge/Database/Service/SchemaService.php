@@ -60,7 +60,7 @@ class SchemaService
                     include $dir . $file;
                     $this->logMigration($file);
                 }
-            } catch(\Throwabble $ex) {
+            } catch(\Throwable $ex) {
                 Cli::output("{$file} MIGRATION FAILED: " . $ex->getMessage());
             }
         }
