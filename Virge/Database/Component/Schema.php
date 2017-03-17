@@ -138,6 +138,20 @@ class Schema{
     public static function int($name, $params = array()){
         $params['name'] = $name;
         $params['type'] = 'INT';
+        $params['length'] = $params['length'] ?? 11;
+        return self::$fields[] = new Field($params);
+    }
+
+    /**
+     * Create new BIG INT column
+     * @param string $name
+     * @param array $params
+     * @return Field
+     */
+    public static function bigint($name, $params = array()){
+        $params['name'] = $name;
+        $params['type'] = 'BIGINT';
+        $params['length'] = $params['length'] ?? 20;
         return self::$fields[] = new Field($params);
     }
     
@@ -223,6 +237,18 @@ class Schema{
     public static function datetime($name, $params= array()){
         $params['name'] = $name;
         $params['type'] = 'DATETIME';
+        return self::$fields[] = new Field($params);
+    }
+
+    /**
+     * Create new custom column
+     * @param string $name
+     * @param array $params
+     * @return Field
+     */
+    public static function custom($name, $type, $params = array()){
+        $params['name'] = $name;
+        $params['type'] = $type;
         return self::$fields[] = new Field($params);
     }
     
