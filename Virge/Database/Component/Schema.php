@@ -379,7 +379,7 @@ class Schema{
                 self::$error = 'Failed to create ' . self::$table_name . ': ' . self::$last_response;
             }
             
-            Cli::output(self::$error . ': ' . self::$last_response);
+            Cli::error(self::$error . ': ' . self::$last_response);
             self::reset();
             
             return false;
@@ -390,7 +390,7 @@ class Schema{
                 self::$last_response = 'Successfully created ' . self::$table_name;
             }
 
-            Cli::output(self::$last_response);
+            Cli::success(self::$last_response);
         }
         
         self::reset();

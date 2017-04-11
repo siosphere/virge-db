@@ -1,13 +1,20 @@
 {
     "name": "virge/db",
+    "description": "Virge::Database is used to connect to databases, run db schema migrations, and is used heavily by Virge::ORM",
     "repositories": [
         {
             "type": "vcs",
             "url": "https://github.com/siosphere/virge-cli"
         }
     ],
+    "authors": [
+        {
+            "email": "kramer@siosphere.com",
+            "name": "Michael Kramer"
+        }
+    ],
     "require": {
-        "virge/cli": "~2.0"
+        "virge/cli": "~3.0"
     },
     "autoload": {
         "psr-4": {"Virge\\": "Virge/"}

@@ -61,7 +61,7 @@ class SchemaService
                     $this->logMigration($file);
                 }
             } catch(\Throwable $ex) {
-                Cli::output("{$file} MIGRATION FAILED: " . $ex->getMessage());
+                Cli::error("{$file} MIGRATION FAILED: " . $ex->getMessage());
             }
         }
 
