@@ -26,7 +26,7 @@ class CommitCommand extends Command
      */
     public function run(Input $input) 
     {
-        $dir = $path === '' ? Config::get('app_path') . 'db/' : $path;
+        $dir = Config::get('app_path') . 'db/';
         
         $this->getSchemaService()->commitMigrations($dir);
     }
