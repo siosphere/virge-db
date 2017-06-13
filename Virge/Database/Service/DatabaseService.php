@@ -66,6 +66,7 @@ class DatabaseService {
         $connection->setPassword($connectionConfig['password']);
         $connection->setDatabase($connectionConfig['database']);
         //set additional parameters
+        $connection->setParameters($connectionConfig['parameters']);
         
         if(!$connection->connect()) {
             throw new ConnectionException(sprintf("Failed to connect to %s, error: %s", $name, $connection->getError()));

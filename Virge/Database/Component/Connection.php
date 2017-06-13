@@ -34,6 +34,8 @@ abstract class Connection {
     protected $port;
     
     protected $socket;
+
+    protected $parameters;
     
     public abstract function connect();
     
@@ -135,6 +137,18 @@ abstract class Connection {
     public function setName($name) {
         $this->name = $name;
         return $this;
+    }
+
+    public function setParameters(array $parameters) 
+    {
+        $this->parameters = $parameters;
+
+        return $this;
+    }
+
+    public function getParameters()
+    {
+        return $this->parameters ?? [];
     }
 
     /**
