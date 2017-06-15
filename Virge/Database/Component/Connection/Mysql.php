@@ -59,6 +59,26 @@ class Mysql extends \Virge\Database\Component\Connection {
     {
         return $this->_resource->ping();
     }
+
+    public function insertId()
+    {
+        return $this->_resource->lastInsertId();
+    }
+
+    public function beginTransaction()
+    {
+        return $this->_resource->beginTransaction();
+    }
+
+    public function commit()
+    {
+        return $this->_resource->commit();
+    }
+
+    public function rollBack()
+    {
+        return $this->_resource->rollBack();
+    }
     
     /**
      * Prepare a statement

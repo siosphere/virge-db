@@ -44,6 +44,14 @@ abstract class Connection {
     public abstract function prepare($sql, $params = array());
 
     public abstract function ping();
+
+    public abstract function insertId();
+
+    public abstract function beginTransaction();
+
+    public abstract function commit();
+
+    public abstract function rollBack();
     
     /**
      * Returns a database resource
