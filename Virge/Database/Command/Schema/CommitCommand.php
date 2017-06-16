@@ -19,14 +19,17 @@ class CommitCommand extends Command
 {
     const COMMAND = 'virge:db:schema:commit';
     const COMMAND_HELP = 'Commit any un-run database schema migrations';
-    const COMMAND_USAGE = 'virge:db:schema:commit';
+    const COMMAND_USAGE = 'virge:db:schema:commit --dir=';
+    const OPT_DIR = 'dir';
     
     /**
      * Create a migration
      */
     public function run(Input $input) 
     {
-        $dir = Config::get('app_path') . 'db/';
+        if(null === ($dir = $input->getOption(self::OPT_DIR))) {
+            $dir = Config::get('app_path') . 'db/';
+        }
         
         $this->getSchemaService()->commitMigrations($dir);
     }

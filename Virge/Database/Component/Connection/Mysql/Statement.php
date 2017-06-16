@@ -32,28 +32,22 @@ class Statement
         $args = func_get_args();
         array_shift($args);
 
-        return $this->params = array_map(function($arg) {
-            if($arg instanceof \DateTime) {
-                return $arg->format("Y-m-d H:i:s");
-            }
-            
-            return $arg;
-        }, $args);
+        return $this->params = $args;
     }
 
     public function execute($params = null)
     {
-        if($params) {
-            $params = array_map(function($arg) {
-                if($arg instanceof \DateTime) {
-                    return $arg->format("Y-m-d H:i:s");
-                }
+        $params = array_map(function($param){
+            if($param instanceof \DateTime) {
+                return $param->format("Y-m-d H:i:s");
+            }
+
+            if(is_object($param)) {
+                return (string) $param;
+            }
                 
-                return $arg;
-            }, $params);
-        } else {
-            $params = $this->getParams();
-        }
+            return $param;
+        }, $params ?? $this->getParams());
 
         $result = $this->stmt->execute($params);
         $this->error = $this->error();
