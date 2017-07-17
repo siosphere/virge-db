@@ -60,9 +60,9 @@ class Mysql extends \Virge\Database\Component\Connection {
         return $this->_resource->ping();
     }
 
-    public function insertId()
+    public function insertId() : int
     {
-        return $this->_resource->lastInsertId();
+        return intval($this->_resource->lastInsertId());
     }
 
     public function beginTransaction()
