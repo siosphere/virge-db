@@ -49,6 +49,8 @@ abstract class Connection {
 
     public abstract function beginTransaction();
 
+    public abstract function inTransaction();
+
     public abstract function commit();
 
     public abstract function rollBack();

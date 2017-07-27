@@ -70,6 +70,11 @@ class Mysql extends \Virge\Database\Component\Connection {
         return $this->_resource->beginTransaction();
     }
 
+    public function inTransaction()
+    {
+        return $this->_resource->inTransaction();
+    }
+
     public function commit()
     {
         return $this->_resource->commit();
