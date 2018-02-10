@@ -101,7 +101,9 @@ class Mysql extends \Virge\Database\Component\Connection {
         }
 
         if(!$stmt) {
-            throw new InvalidQueryException(sprintf("Failed to execute query %s, error: %s", $sql, "Unknown error"));
+            $errorInfo = $this->_resource->errorInfo();
+
+            throw new InvalidQueryException(sprintf("Failed to execute query %s, error: [%s] (%s): %s", $sql, $errorInfo[0], $errorInfo[1], $errorInfo[2]));
         }
 
         return new Statement($stmt, $params);
