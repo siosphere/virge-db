@@ -94,6 +94,8 @@ class Mysql extends \Virge\Database\Component\Connection {
     public function prepare($sql, $params = [], $options = []) : Statement
     {
         try {
+            //rewrite sql
+            $this->prepareSql($sql, $params);
             $stmt = $this->_resource->prepare($sql, $options);
         } catch(\PDOException $ex) {
             $error = $ex->getMessage();
@@ -107,5 +109,37 @@ class Mysql extends \Virge\Database\Component\Connection {
         }
 
         return new Statement($stmt, $params);
+    }
+
+    protected function prepareSql(string &$sql, &$params = [])
+    {
+        //replace named parameters
+        $results = [];
+        preg_match_all("/(:[a-z]+)/i", $sql, $results, PREG_OFFSET_CAPTURE);
+        
+        if(empty($results[1])) {
+            return;
+        }
+        
+        $runningOffset = 0;
+        $paramCounts = [];
+
+        foreach($results[1] as $resultData) {
+            $name = $resultData[0];
+            if(!array_key_exists($name, $paramCounts)) {
+                $paramCounts[$name] = 0;
+            }
+            
+            $paramCounts[$name]++;
+            $offset = $resultData[1];
+            //when we change the named parameters to be unique, we need to keep track of the running offset
+            $offset += $runningOffset;
+
+            $newName = $paramCounts[$name] > 1 ? $name . $paramCounts[$name] : $name;
+            $params[$newName] = $params[$name];
+            //remove this portion from the string
+            $sql = substr_replace($sql, $newName, $offset, strlen($name));
+            $runningOffset += strlen($newName) - strlen($name);
+        }
     }
 }

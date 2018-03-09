@@ -37,7 +37,7 @@ class Statement
 
     public function execute($params = null)
     {
-        $params = array_map(function($param){
+        $params = array_combine(array_keys($params ?? $this->getParams()), array_map(function($param){
             if($param instanceof \DateTime) {
                 return $param->format("Y-m-d H:i:s");
             }
@@ -47,7 +47,7 @@ class Statement
             }
                 
             return $param;
-        }, $params ?? $this->getParams());
+        }, $params ?? $this->getParams()));
 
         $result = $this->stmt->execute($params);
         $this->error = $this->error();
