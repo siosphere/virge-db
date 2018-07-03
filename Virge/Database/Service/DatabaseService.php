@@ -65,6 +65,7 @@ class DatabaseService {
         $connection->setUsername($connectionConfig['username']);
         $connection->setPassword($connectionConfig['password']);
         $connection->setDatabase($connectionConfig['database']);
+        $connection->setPort($connectionConfig['port'] ?? 3306);
         //set additional parameters
         $connection->setParameters($connectionConfig['parameters']);
         
